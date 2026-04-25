@@ -1,27 +1,31 @@
 #ifndef PRIORITY_QUEUE_H
 #define PRIORITY_QUEUE_H
 
-#include "Node_H.h"
+#include<vector>
+#include<algorithm>
+#include<iostream>
 
 class Priority_Queue{
 private:
-    Node* root_node;
-    Node* right_node;
-    Node* left_node;
+    // max size of the queue
+    int capacity; 
+    // queue array
+    vector<int> queue;
+    // returns the parent node
+    int parent(int i){return (i - 1)/2;}
+    // returning the left child node
+    int left(int i){return 2 * 1 + 1;}
+    // returning the right child node
+    int right(int i){return 2 * i + 2;}
 public:
-    Priority_Queue(){
-        root_node = nullptr;
-        right_node = nullptr;
-        left_node = nullptr;
+    Priority_Queue(int size){
+        this->capacity = size;
     }
-
-    Node* getRootPtr() const;
-    Node* getRightPtr() const;
-    Node* getLeftPtr() const;
-
     bool isEmpty();
-    void insert(int);
+    void heapify(int&);
+    void insert(int&);
     int deleteMin();
+    void printQueue(int);
 };
 
 #endif
