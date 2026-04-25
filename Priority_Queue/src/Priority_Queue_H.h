@@ -5,8 +5,12 @@
 #include<algorithm>
 #include<iostream>
 
+using namespace std;
+
 class Priority_Queue{
 private:
+    // current size of the array
+    int size;
     // max size of the queue
     int capacity; 
     // queue array
@@ -18,10 +22,16 @@ private:
     // returning the right child node
     int right(int i){return 2 * i + 2;}
 public:
-    Priority_Queue(int size){
-        this->capacity = size;
+    Priority_Queue(){
+        
+    }
+    Priority_Queue(int capacity){
+        this->size = 0;
+        this->capacity = capacity;
+        this->queue.resize(capacity);
     }
     bool isEmpty();
+    void buildHeap(vector<int>&);
     void heapify(int&);
     void insert(int&);
     int deleteMin();
