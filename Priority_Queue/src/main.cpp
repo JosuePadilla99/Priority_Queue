@@ -4,12 +4,11 @@ using namespace std;
 
 int main(){
     int caseNum{0};
-    Priority_Queue utilobj;
     vector<int> userInput;
 
     while(true){
         int valueToAdd{0};
-        cout << "Enter the value you want to insert in the queue or enter '-1' to end: " << endl;
+        cout << "Enter a positive number or enter '-1' to end: " << endl;
         cin >> valueToAdd;
         if(valueToAdd == -1){
             break;
@@ -25,21 +24,30 @@ int main(){
     cin >> caseNum;
     switch(caseNum){
         case 1:{
+            int insert{0};
             Priority_Queue inputObj(inputCapacity);
-            inputObj.buildHeap(userInput);
-            for(int i{0}; i < inputCapacity; i++){
-                inputObj.insert(userInput[i]);
-            }
-            inputObj.printQueue(0);
+            inputObj.buildHeap(userInput); // build our initial heap
+            cout << "Enter the value you want to insert in the queue: " << endl;
+            cin >> insert;
+            inputObj.insert(insert);
+            inputObj.printQueue();
             break;
         }
         case 2:{
             Priority_Queue deleteObj(inputCapacity);
-            deleteObj.deleteMin();
+            deleteObj.buildHeap(userInput); // building the initial heap
+            cout << "Items in heap before deletion are: ";
+            deleteObj.printQueue();
+            deleteObj.deleteMin(); // deleteMin utilized heapify function to maintain complete binary tree shape
+            cout << endl;
+            cout << "Items in heap after deletion are: ";
+            deleteObj.printQueue();
             break;
         }
         case 3:{
-            utilobj.printQueue(0); // using zero as our starint argument since the param will be recursively updated in the printQueue function
+            Priority_Queue printObj(inputCapacity);
+            printObj.buildHeap(userInput); // need to build our heap in order to print items in queue
+            printObj.printQueue(); 
             break;
         }
         default:

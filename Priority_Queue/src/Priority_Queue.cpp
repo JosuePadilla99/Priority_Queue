@@ -8,19 +8,19 @@ void Priority_Queue::buildHeap(vector<int>& inputVec){
     size = capacity;
     queue = inputVec;
 
-    for(int i = parent(i); i >= 0; i--){
+    for(int i = parent(size); i >= 0; i--){
         heapify(i);
     }
 }
 
-void Priority_Queue::heapify(int& child){
+void Priority_Queue::heapify(int index){
     /*This function will be used to maintain the order in our queue.
     We compare the root, right, and left node values and find the smallest of the three for the entire queue until we 
     correctly sorted the queue*/
 
-    int leftChild = left(child);
-    int rightChild = right(child);
-    int smallestValue = child;
+    int leftChild = left(index);
+    int rightChild = right(index);
+    int smallestValue = index;
 
     if((leftChild < size) && (queue[leftChild] < queue[smallestValue])){
         smallestValue = leftChild; // setting smallest value in tree to the left child if the queue value 
@@ -33,8 +33,8 @@ void Priority_Queue::heapify(int& child){
     
     // if the smallest value in the queue is not equal to the child param, we will swap the two values since that means that 
     // we have not found the smallest value in the queue. We will recursively call the heapify function until we find the smallest value in the queue
-    if(smallestValue != child){
-        swap(queue[child], queue[smallestValue]);
+    if(smallestValue != index){
+        swap(queue[index], queue[smallestValue]);
         heapify(smallestValue);
     }
 }
@@ -43,14 +43,13 @@ void Priority_Queue::heapify(int& child){
 void Priority_Queue::insert(int& value){
     /*The insert function will a min heap data structure where our root node is the smallest value in our tree*/
     if(isEmpty()){
-        cout << "Test" << endl;
         queue[0] == value;
         cout << queue[0] << endl;
         return;
     }
     
     if(size == capacity){
-        cout << "Min heap is full!" << endl;
+        cout << "Min heap is full! Resizing capacity." << endl;
         queue.resize(capacity * 2); // resizing our queue to create a left child hole to maintain complete tree structure
     }
     // increase the size of the array and then adding the new value to the end of the array
@@ -94,8 +93,8 @@ int Priority_Queue::deleteMin(){
 
 }
 
-void Priority_Queue::printQueue(int queueSize){
-    for(int i{0}; i < capacity; i++){
+void Priority_Queue::printQueue(){
+    for(int i{0}; i < size; i++){
         cout << queue[i] << ", ";
     }
 }
